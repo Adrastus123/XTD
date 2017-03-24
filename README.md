@@ -1,5 +1,8 @@
-# XTD  
-This is a driver for the XTD utilizing the Raspberry Pi.  
+# XTD Rev B Version
+This is a driver for the XTD utilizing the Raspberry Pi 2.
+
+UPDATE : 
+Currently trying to correctly intergrating the script to work on the new revision
 
 # Installation and Usage  
 Download the code from the [respository](https://github.com/rshin808/XTD).  
