@@ -22,6 +22,8 @@ testSignal = 1   # 0 = off; 1 = on
 jtag       = 1   # 1 = SCROD A; 0 = SCROD A+B
 bma        = 501
 bmb        = 499
+REGMAP = "map.txt"
+
 
 GPIO.cleanup()
 
@@ -37,7 +39,11 @@ user = userSettings()
 
 user.osc = bool(int(osc))
 print bcolors.WARNING + "Loading PLL" + bcolors.ENDC
+
 pll = si5338POST(0x70, user.osc, bus, VCOREGS, PINS["INTERRUPT"], GPIO)
+pll.program(REGMAP) # Debugging Purposes : programs from clockbuilder reg map
+#pll.regcheck(REGMAP)# Debugging Purposes : compares the resulting programmed with the file.
+
 try:
     if pll.check():
         print bcolors.FAIL + "Exiting..." + bcolors.ENDC
@@ -51,6 +57,7 @@ except Exception, e:
         csvW.writerow(row)
     time.sleep(30)
     if pll.check():
+        print "PLL Check True"
         pass
     else:
         pass
@@ -189,5 +196,7 @@ descDisp2 = TS(loffset, 74, 14, "to Disappear", font14h)
 shutdownDisp.draw_string((0, 0), (255, 255), display)
 descDisp1.draw_string((0, 0), (255, 255), display)
 descDisp2.draw_string((0, 0), (255, 255), display)
-os.system("shutdown -h now")
+#os.system("shutdown -h now")
+#For debugging prepose,  removed.
+os.system("shutdown -r now")
 
